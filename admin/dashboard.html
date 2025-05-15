@@ -1,10 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  
-  if (!user || user.role !== 'admin') {
-    alert("Admin access required");
-    window.location.href = "../login.html";
-  } else {
-    document.getElementById('admin-name').textContent = user.name;
-  }
-});
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="header"></div>
+    
+    <main>
+        <h1>Admin Dashboard</h1>
+        <div class="admin-stats">
+            <!-- Admin metrics would go here -->
+        </div>
+    </main>
+    
+    <div id="footer"></div>
+    
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        // Verify admin status on page load
+        authGuard(true);
+    </script>
+</body>
+</html>
