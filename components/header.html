@@ -5,8 +5,27 @@
       <button class="hamburger">☰</button>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
+        
+        <!-- Common Links -->
+        <div id="guest-links">
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+        </div>
+        
+        <!-- User Links (hidden by default) -->
+        <div id="user-links" class="hidden">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="profile.html">Profile</a>
+          <a href="#" id="logout-btn">Logout</a>
+        </div>
+        
+        <!-- Admin Links (hidden by default) -->
+        <div id="admin-links" class="hidden">
+          <a href="admin/dashboard.html">Admin Panel</a>
+          <a href="admin/users.html">Manage Users</a>
+          <a href="#" id="admin-logout">Logout</a>
+        </div>
+        
         <button class="theme-toggle" aria-label="Toggle dark mode">🌓</button>
       </div>
     </nav>
