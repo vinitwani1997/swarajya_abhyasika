@@ -14,14 +14,13 @@
 //     });
 // });
 document.addEventListener("DOMContentLoaded", function () {
-    // Detect if the page is inside /admin or /pages
+    // Get correct base path based on current location
+    const pathParts = window.location.pathname.split('/');
     let basePath = '';
-    if (window.location.pathname.includes('/admin/')) {
+
+    // Check if in subfolder like /pages or /admin
+    if (pathParts.includes('pages') || pathParts.includes('admin')) {
         basePath = '../';
-    } else if (window.location.pathname.includes('/pages/')) {
-        basePath = '../';
-    } else {
-        basePath = './';
     }
 
     Promise.all([
@@ -51,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('footer').innerHTML = '<footer><p>© 2024 Swarajya Abhyasika</p></footer>';
     });
 });
+
 
 
 function initMobileMenu() {
