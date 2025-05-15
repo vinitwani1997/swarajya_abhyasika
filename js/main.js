@@ -13,42 +13,34 @@
 //         initAuthSystem();
 //     });
 // });
-document.addEventListener("DOMContentLoaded", function () {
-    // Get correct base path based on current location
-    const pathParts = window.location.pathname.split('/');
-    let basePath = '';
-
-    // Check if in subfolder like /pages or /admin
-    if (pathParts.includes('pages') || pathParts.includes('admin')) {
-        basePath = '../';
-    }
-
-    Promise.all([
-        fetch(`${basePath}components/header.html`).then(r => {
-            if (!r.ok) throw new Error('Header not found');
-            return r.text();
-        }),
-        fetch(`${basePath}components/footer.html`).then(r => {
-            if (!r.ok) throw new Error('Footer not found');
-            return r.text();
-        })
-    ])
-    .then(([headerData, footerData]) => {
-        const header = document.getElementById('header');
-        const footer = document.getElementById('footer');
-
-        if (header) header.innerHTML = headerData;
-        if (footer) footer.innerHTML = footerData;
-
-        initMobileMenu();
-        initDarkMode();
-        initAuthSystem();
-    })
-    .catch(error => {
-        console.error('Loading error:', error);
-        document.getElementById('header').innerHTML = '<h1>Swarajya Abhyasika</h1>';
-        document.getElementById('footer').innerHTML = '<footer><p>© 2024 Swarajya Abhyasika</p></footer>';
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    // Load header and footer with error handling
+    const loadComponents = async () => {
+        try {
+            // Load header
+            const headerResponse = await fetch('../components/header.html');
+            if (!headerResponse.ok) throw new Error('Header not found');
+            document.getElementById('header').innerHTML = await headerResponse.text();
+            
+            // Load footer
+            const footerResponse = await fetch('../components/footer.html');
+            if (!footerResponse.ok) throw new Error('Footer not found');
+            document.getElementById('footer').innerHTML = await footerResponse.text();
+            
+            // Initialize other functions
+            initMobileMenu();
+            initDarkMode();
+            initAuthSystem();
+            
+        } catch (error) {
+            console.error('Component loading failed:', error);
+            // Fallback content
+            document.getElementById('header').innerHTML = '<h1>Swarajya Abhyasika</h1>';
+            document.getElementById('footer').innerHTML = '<footer><p>© 2024 Swarajya Abhyasika</p></footer>';
+        }
+    };
+    
+    loadComponents();
 });
 
 
