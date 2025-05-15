@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Load Header and Footer first
     Promise.all([
-        fetch('../components/header.html'').then(r => r.text()),
+        fetch('components/header.html'').then(r => r.text()),
         fetch('components/footer.html').then(r => r.text())
     ]).then(([headerData, footerData]) => {
         document.getElementById('header').innerHTML = headerData;
