@@ -1,26 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Swarajya Abhyasika</title>
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
     <div id="header"></div>
-    
+
     <main>
-        <h1>Admin Dashboard</h1>
-        <div class="admin-stats">
-            <!-- Admin metrics would go here -->
-        </div>
+        <section class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <p class="admin-welcome">Welcome back, <span id="admin-name"></span></p>
+        </section>
+
+        <section class="admin-stats">
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <p id="users-count">0</p>
+                <a href="users.html" class="button small">Manage Users</a>
+            </div>
+            <div class="stat-card">
+                <h3>Active Courses</h3>
+                <p id="courses-count">0</p>
+                <a href="courses.html" class="button small">Manage Courses</a>
+            </div>
+            <div class="stat-card">
+                <h3>Recent Activity</h3>
+                <ul id="recent-activity">
+                    <!-- Activity will be loaded here -->
+                </ul>
+            </div>
+        </section>
+
+        <section class="admin-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+                <a href="users/create.html" class="button">Add New User</a>
+                <a href="courses/create.html" class="button">Create Course</a>
+                <a href="settings.html" class="button secondary">System Settings</a>
+            </div>
+        </section>
     </main>
-    
+
     <div id="footer"></div>
-    
-    <script src="../js/main.js"></script>
-    <script src="../js/admin.js"></script>
+
+    <script src="../../js/main.js"></script>
     <script>
-        // Verify admin status on page load
-        authGuard(true);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verify admin status
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user || user.role !== 'admin') {
+                window.location.href = '../../login.html';
+                return;
+            }
+
+            // Populate admin data
+            document.getElementById('admin-name').textContent = user.name || 'Administrator';
+            
+            // Sample data - in real app, fetch from API
+            const sampleData = {
+                totalUsers: 42,
+                activeCourses: 8,
+                recentActivity: [
+                    "New user registered: John Doe",
+                    "Course 'Advanced Leadership' updated",
+                    "5 new enrollments today"
+                ]
+            };
+
+            // Update stats
+            document.getElementById('users-count').textContent = sampleData.totalUsers;
+            document.getElementById('courses-count').textContent = sampleData.activeCourses;
+            
+            const activityList = document.getElementById('recent-activity');
+            sampleData.recentActivity.forEach(activity => {
+                activityList.innerHTML += `<li>${activity}</li>`;
+            });
+        });
     </script>
 </body>
 </html>
