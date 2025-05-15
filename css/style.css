@@ -248,3 +248,27 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* Role-based visibility */
+.hidden {
+  display: none !important;
+}
+
+/* Role indicators */
+.user-badge {
+  background: var(--secondary);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.admin-badge {
+  background: var(--accent);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
