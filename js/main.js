@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const basePath = window.location.pathname.includes('pages') || window.location.pathname.includes('admin') ? '../' : '';
     // Load Header and Footer first
     Promise.all([
         fetch('components/header.html').then(r => r.text()),
