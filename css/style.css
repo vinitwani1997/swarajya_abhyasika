@@ -272,3 +272,63 @@ footer {
   font-size: 0.8rem;
   margin-left: 0.5rem;
 }
+
+
+/* Registration Form Specific Styles */
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.strength-meter {
+    display: flex;
+    gap: 4px;
+    margin-top: 0.5rem;
+    height: 4px;
+}
+
+.strength-bar {
+    flex: 1;
+    background: var(--gray-light);
+    border-radius: 2px;
+}
+
+.strength-bar.active {
+    background: var(--secondary);
+}
+
+.strength-text {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: var(--secondary);
+}
+
+.error-text {
+    color: #EF4444;
+    font-size: 0.8rem;
+}
+
+.error {
+    border-color: #EF4444 !important;
+}
+
+.login-redirect {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--gray-dark);
+}
