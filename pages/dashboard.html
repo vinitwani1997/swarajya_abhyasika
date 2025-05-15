@@ -3,54 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard - Swarajya Abhyasika</title>
+    <title>My Dashboard - Swarajya Abhyasika</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Preload important resources -->
-    <link rel="preload" href="../components/header.html" as="fetch">
-    <link rel="preload" href="../components/footer.html" as="fetch">
-    <style>
-        /* Temporary styles until components load */
-        #header, #footer {
-            min-height: 60px;
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-        }
-        #footer {
-            background: var(--secondary);
-            margin-top: auto;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        main {
-            flex: 1;
-        }
-    </style>
 </head>
 <body>
-    <!-- These will be replaced by main.js -->
-    <div id="header">Loading header...</div>
-    
+    <div id="header"></div>
+
     <main>
-        <div class="container">
-            <h1>Welcome to Your Dashboard</h1>
-            <!-- Dashboard content here -->
-        </div>
+        <section class="dashboard-header">
+            <h1>Welcome, <span id="user-name"></span>!</h1>
+            <div class="user-stats">
+                <div class="stat-card">
+                    <h3>Courses Enrolled</h3>
+                    <p id="courses-count">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <small id="progress-text">0% Complete</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-courses">
+            <h2>Your Courses</h2>
+            <div class="courses-grid" id="user-courses">
+                <!-- Courses will be loaded here -->
+            </div>
+        </section>
+
+        <section class="quick-actions">
+            <a href="courses.html" class="button">Browse Courses</a>
+            <a href="profile.html" class="button secondary">Edit Profile</a>
+        </section>
     </main>
-    
-    <div id="footer">Loading footer...</div>
-    
+
+    <div id="footer"></div>
+
     <script src="../js/main.js"></script>
     <script>
-        // Fallback in case main.js fails
-        setTimeout(() => {
-            if (!document.getElementById('header').innerHTML.includes('nav')) {
-                location.reload();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user || user.role === 'admin') {
+                window.location.href = user?.role === 'admin' 
+                    ? '../admin/dashboard.html' 
+                    : '../login.html';
+                return;
             }
-        }, 1000);
+
+            // Populate user data
+            document.getElementById('user-name').textContent = user.name || 'User';
+            
+            // In a real app, you would fetch these from an API
+            const sampleCourses = [
+                { id: 1, title: "Introduction to Swarajya", progress: 35 },
+                { id: 2, title: "Indian Constitution Basics", progress: 70 },
+                { id: 3, title: "Leadership Skills", progress: 15 }
+            ];
+
+            // Render courses
+            const coursesGrid = document.getElementById('user-courses');
+            sampleCourses.forEach(course => {
+                coursesGrid.innerHTML += `
+                    <div class="course-card">
+                        <h3>${course.title}</h3>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${course.progress}%"></div>
+                            </div>
+                            <small>${course.progress}% Complete</small>
+                        </div>
+                        <a href="course.html?id=${course.id}" class="button small">Continue</a>
+                    </div>
+                `;
+            });
+
+            // Update stats
+            document.getElementById('courses-count').textContent = sampleCourses.length;
+            const avgProgress = sampleCourses.reduce((sum, c) => sum + c.progress, 0) / sampleCourses.length;
+            document.getElementById('progress-fill').style.width = `${avgProgress}%`;
+            document.getElementById('progress-text').textContent = `${Math.round(avgProgress)}% Complete`;
+        });
     </script>
 </body>
 </html>
