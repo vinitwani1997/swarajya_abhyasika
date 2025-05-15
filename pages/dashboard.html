@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User Dashboard - Swarajya Abhyasika</title>
-  <link rel="stylesheet" href="../css/style.css"/>
-  <link rel="preload" href="../components/header.html" as="fetch">
-  <link rel="preload" href="../components/footer.html" as="fetch">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Swarajya Abhyasika</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Preload important resources -->
+    <link rel="preload" href="../components/header.html" as="fetch">
+    <link rel="preload" href="../components/footer.html" as="fetch">
+    <style>
+        /* Temporary styles until components load */
+        #header, #footer {
+            min-height: 60px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+        }
+        #footer {
+            background: var(--secondary);
+            margin-top: auto;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
-<!--   <div id="header"></div> -->
-
-  <main>
-    <div class="dashboard-header">
-      <h1>User Dashboard</h1>
-      <p id="welcome-message"></p>
-    </div>
-
-    <section class="user-stats">
-      <div class="stat-card">
-        <h3>Courses Enrolled</h3>
-        <p>3 active</p>
-        <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
-      </div>
-      <div class="stat-card">
-        <h3>Completed Lessons</h3>
-        <p>15 out of 25</p>
-        <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
-      </div>
-    </section>
-  </main>
-
-  <div id="footer"></div>
-
-  <script src="../js/auth.js"></script>
-  <script src="../js/main.js"></script>
-  <script>
-    authGuard("user");
-
-    const user = getCurrentUser();
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('welcome-message').textContent = `Welcome, ${user.name}`;
-    });
-  </script>
+    <!-- These will be replaced by main.js -->
+    <div id="header">Loading header...</div>
+    
+    <main>
+        <div class="container">
+            <h1>Welcome to Your Dashboard</h1>
+            <!-- Dashboard content here -->
+        </div>
+    </main>
+    
+    <div id="footer">Loading footer...</div>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        // Fallback in case main.js fails
+        setTimeout(() => {
+            if (!document.getElementById('header').innerHTML.includes('nav')) {
+                location.reload();
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
