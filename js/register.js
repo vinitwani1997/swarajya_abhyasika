@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hardcoded admin credentials (for demo only - in production this should be server-side)
     const ADMIN_CREDENTIALS = {
         email: "admin@swarajya.com",
-        // password: "SwarajyaAdmin@2024", // Change this in production!
-        password: "admin@123",
+        password: "SwarajyaAdmin@2024", // Change this in production!
         name: "System Administrator",
         role: "admin"
     };
