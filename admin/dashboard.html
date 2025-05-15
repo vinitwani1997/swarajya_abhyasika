@@ -1,0 +1,10 @@
+document.addEventListener('DOMContentLoaded', function() {
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  
+  if (!user || user.role !== 'admin') {
+    alert("Admin access required");
+    window.location.href = "../login.html";
+  } else {
+    document.getElementById('admin-name').textContent = user.name;
+  }
+});
