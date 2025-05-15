@@ -13,10 +13,17 @@
 //         initAuthSystem();
 //     });
 // });
-document.addEventListener("DOMContentLoaded", function() {
-    // Get correct base path
-    const basePath = window.location.pathname.includes('admin') ? '../' : './';
-    
+document.addEventListener("DOMContentLoaded", function () {
+    // Detect if the page is inside /admin or /pages
+    let basePath = '';
+    if (window.location.pathname.includes('/admin/')) {
+        basePath = '../';
+    } else if (window.location.pathname.includes('/pages/')) {
+        basePath = '../';
+    } else {
+        basePath = './';
+    }
+
     Promise.all([
         fetch(`${basePath}components/header.html`).then(r => {
             if (!r.ok) throw new Error('Header not found');
@@ -30,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(([headerData, footerData]) => {
         const header = document.getElementById('header');
         const footer = document.getElementById('footer');
-        
+
         if (header) header.innerHTML = headerData;
         if (footer) footer.innerHTML = footerData;
 
@@ -40,11 +47,11 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .catch(error => {
         console.error('Loading error:', error);
-        // Fallback header/footer if files missing
         document.getElementById('header').innerHTML = '<h1>Swarajya Abhyasika</h1>';
         document.getElementById('footer').innerHTML = '<footer><p>© 2024 Swarajya Abhyasika</p></footer>';
     });
 });
+
 
 function initMobileMenu() {
     const hamburger = document.querySelector('.hamburger');
