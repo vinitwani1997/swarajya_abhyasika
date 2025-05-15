@@ -84,3 +84,43 @@ function initDarkMode() {
         themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
 }
+
+// After your existing DOMContentLoaded code
+function initAuthSystem() {
+  // Check login status from localStorage/session
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
+  if (currentUser) {
+    // Hide guest links
+    document.getElementById('guest-links').classList.add('hidden');
+    
+    if (currentUser.role === 'admin') {
+      // Show admin links
+      document.getElementById('admin-links').classList.remove('hidden');
+      
+      // Add admin badge to logo
+      const logo = document.querySelector('.logo');
+      logo.innerHTML += '<span class="admin-badge">Admin</span>';
+    } else {
+      // Show user links
+      document.getElementById('user-links').classList.remove('hidden');
+      
+      // Add user badge to logo
+      const logo = document.querySelector('.logo');
+      logo.innerHTML += '<span class="user-badge">User</span>';
+    }
+  }
+
+  // Logout functionality
+  const logoutButtons = document.querySelectorAll('#logout-btn, #admin-logout');
+  logoutButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('currentUser');
+      window.location.href = 'index.html';
+    });
+  });
+}
+
+// Call this after header loads
+initAuthSystem();
